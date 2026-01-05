@@ -1,0 +1,1 @@
+<a href="../autentificacao/cadastrar.php">cadastrar</a>
