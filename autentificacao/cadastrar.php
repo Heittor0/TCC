@@ -105,9 +105,10 @@ require '../config/config.php';
     </form>
 
     <div class="footer">
-      Já tem uma conta? <a href="#">Entrar</a>
+      Já tem uma conta? <a href="login.php">Login</a>
     </div>
   </div>
 </body>
 </html>
+
 
