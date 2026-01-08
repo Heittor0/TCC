@@ -137,9 +137,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 
     <div class="footer">
-      Já tem uma conta? <a href="#">Entrar</a>
+      Já tem uma conta? <a href="login.php">login</a>
     </div>
   </div>
 </body>
 </html>
+
+
 
