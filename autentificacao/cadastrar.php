@@ -1,5 +1,37 @@
 <?php
 require '../config/config.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nome = $_POST['nome'];
+            $email = $_POST['email'];
+            $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+            //Qual codigo faz oq
+            // Esse daqui Cria uma string para contar quantos registros tem na tabela
+            $sql = "SELECT COUNT(*) FROM usuarios WHERE email = :email";
+            //Prepara uma consulta no SQL(neon) usando o pdo
+            $stmt = $pdo -> prepare($sql);
+            //Prepara a consulta SQL para ser executada no banco de dados
+            $stmt->bindParam(':email', $email);
+            //Associa a variavel email ao parametro no SQL
+            $stmt->execute();
+            //Executa a consulta preparada no Banco de dados
+            $existe = $stmt->fetchColumn();
+            if($existe > 0 ){
+                echo "<div style='color:#776472;'>Este email já existe.</div>";
+            } else {
+                $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':nome', $nome);
+                $stmt->bindParam(':email', $email);
+                $stmt->bindParam(':senha', $senha);
+                if ($stmt->execute()) {
+                    echo "<div style='color:#558B6E;'>Cadastro realizado com sucesso!</div>";
+                } else {
+                    echo "<div style='color:#776472;'>Erro ao cadastrar.</div>";
+                }
+            }
+            
+        }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -91,15 +123,15 @@ require '../config/config.php';
 <body>
   <div class="container">
     <h1>Cadastrar-se</h1>
-    <form>
+    <form method="POST">
       <div class="form-group">
-        <input type="email" placeholder="E-mail" required>
+        <input type="email" placeholder="E-mail" name="email" id="email"required>
       </div>
       <div class="form-group">
-        <input type="text" placeholder="Nome de usuário" required>
+        <input type="text" placeholder="Nome de usuário"name="nome" id="nome" required>
       </div>
       <div class="form-group">
-        <input type="password" placeholder="Senha" required>
+        <input type="password" placeholder="Senha"name="senha" id="senha" required>
       </div>
       <button type="submit" class="btn">Cadastrar</button>
     </form>

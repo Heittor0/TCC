@@ -1,3 +1,31 @@
+<?php
+require '../config/config.php';
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+  $nome = trim($_POST['nome']);
+  $senha = $_POST['senha'];
+
+  $sql = "SELECT * FROM usuarios WHERE nome = :nome";
+  $stmt = $pdo->prepare($sql);
+  $stmt-> bindParam(':nome', $nome);
+  $stmt->execute();
+  $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  if( $usuario && password_verify($senha, $usuario['senha'])) {
+            // grava id na sessão (usuário logado)
+            $_SESSION['id'] = $usuario['id'];
+            header('Location: ../feed/index.php');
+            exit();
+        } else {
+            echo  'Nome ou senha incorretos.';
+        }
+
+
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -88,17 +116,17 @@
 <body>
   <div class="container">
     <h1>Login</h1>
-    <form>
+    <form method='POST'>
       <div class="form-group">
-        <input type="text" placeholder="Nome de usuário ou e-mail" required>
+        <input type="text" placeholder="Nome de usuário ou e-mail" name='nome' id='nome' required>
       </div>
       <div class="form-group">
-        <input type="password" placeholder="Senha" required>
+        <input type="password" placeholder="Senha" name='senha' id='senha' required>
       </div>
       <button type="submit" class="btn">Entrar</button>
     </form>
     <div class="footer">
-      Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
+      Não tem uma conta? <a href="cadastrar.php">Cadastre-se</a>
     </div>
   </div>
 </body>
