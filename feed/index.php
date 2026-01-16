@@ -26,9 +26,8 @@ require '../config/config.php';
     <form action="" method="post">
         <div class="posts">
             <textarea name="textarea" id="textarea">Digite algo</textarea>
-            <index type="file" id="img" name="img">imagem</index>
-            <index type="file" id="gif" name="gif">gif</index>
-            <button type="submit">Postar</button>
+            <input type="file" placeholder="img" id="img" name="img">
+            <input type="file" placeholder="gif" id="gif" name="gif">
         </div>
     </form>
     <a href="../func/func.php">TESTE</a>
