@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../config/config.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -10,13 +11,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $stmt = $pdo->prepare($sql);
   $stmt-> bindParam(':nome', $nome);
   $stmt->execute();
-  $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+  $usuarios = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if( $usuario && password_verify($senha, $usuario['senha'])) {
+  if( $usuarios && password_verify($senha, $usuarios['senha'])) {
             // grava id na sessão (usuário logado)
-            $_SESSION['id'] = $usuario['id'];
-            header('Location: ../feed/index.php');
-            exit();
+            $_SESSION['id'] = $usuarios['id'];
+            header('location:../feed');
+            exit;
         } else {
             echo  'Nome ou senha incorretos.';
         }
