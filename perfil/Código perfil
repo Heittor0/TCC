@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Aba lateral */
+    .sidebar {
+      width: 80px;
+      background-color: #d9d9d9;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar li {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      font-size: 28px;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .sidebar li:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Área principal escura */
+    .profile {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #000;
+      height: 100vh;
+      padding: 0 40px;
+      color: white;
+    }
+
+    /* Cabeçalho */
+    .editor {
+      flex: 0 0 25%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 30px;
+    }
+
+    .editor-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .info h2 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+    }
+
+    /* Avatar */
+    .avatar {
+      width: 110px;
+      height: 110px;
+      background-color: #333;
+      border-radius: 50%;
+    }
+
+    .stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 10px;
+      font-size: 22px;
+      color: white;
+    }
+
+    .stats p strong {
+      font-size: 24px;
+      color: #800080;
+    }
+
+    /* Botão Editar no canto superior direito */
+    .edit-button {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #d9d9d9;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .edit-button:hover {
+      background-color: #800080;
+      color: white;
+    }
+
+    /* Linhas acima e abaixo dos botões */
+    .tabs-wrapper {
+      border-top: 1px solid #444;
+      border-bottom: 1px solid #444;
+      padding: 10px 0;
+      margin-top: 10px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tab-left, .tab-center, .tab-right {
+      flex: 1;
+      display: flex;
+    }
+
+    .tab-left {
+      justify-content: flex-start;
+    }
+
+    .tab-center {
+      justify-content: center;
+    }
+
+    .tab-right {
+      justify-content: flex-end;
+    }
+
+    .tabs button {
+      padding: 16px 40px;
+      font-size: 20px;
+      border: none;
+      background-color: #d9d9d9;
+      color: black;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .tabs button:hover {
+      background-color: #800080;
+      color: white;
+    }
+
+    .tabs .active {
+      background-color: #d9d9d9;
+      color: black;
+    }
+
+    /* Área de posts retangular */
+    .content {
+      flex: 1;
+      display: block;
+      margin-top: 50px; 
+    }
+
+    .post {
+      position: relative;        
+      width: 100%;
+      height: 250px;
+      background-color: #d9d9d9;
+      color: black;
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      box-shadow: 0 2px 4px rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+    }
+
+    .add-image {
+      position: absolute;
+      bottom: 10px;              
+      left: 10px;                
+      padding: 6px 12px;         
+      font-size: 14px;           
+      background-color: #d9d9d9;
+      color: black;
+      border: 1px solid #555;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-image:hover {
+      background-color: #800080;
+      color: white;
+    }
+
+    /* Rodapé */
+    .footer {
+      flex: 0 0 15%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><i class="fas fa-home"></i></li>
+        <li><i class="fas fa-comment-dots"></i></li>
+        <li><i class="fas fa-search"></i></li>
+        <li><i class="fas fa-users"></i></li>
+        <li><i class="fas fa-user"></i></li>
+        <li><i class="fas fa-cog"></i></li>
+      </ul>
+    </aside>
+
+    <main class="profile">
+      <div class="editor">
+        <div class="editor-left">
+          <div class="avatar"></div>
+          <div class="info">
+            <h2>Nome da conta</h2>
+            <div class="stats">
+              <p><strong>120</strong> seguindo</p>
+              <p><strong>350</strong> seguidores</p>
+            </div>
+          </div>
+        </div>
+        <button class="edit-button">Editar</button>
+      </div>
+
+      <div class="tabs-wrapper">
+        <nav class="tabs">
+          <div class="tab-left">
+            <button class="active">Meus posts</button>
+          </div>
+          <div class="tab-center">
+            <button>Posts curtidos</button>
+          </div>
+          <div class="tab-right">
+            <button>Posts salvos</button>
+          </div>
+        </nav>
+      </div>
+
+      <section class="content">
+        <div class="post">
+          <p>Conteúdo do post aqui...</p>
+          <button class="add-image">+ Adicionar imagem</button>
+        </div>
+      </section>
+
+      <div class="footer">
+        Sobre | Ajuda | Privacidade
+      </div>
+    </main>
+  </div>
+</body>
+</html>
